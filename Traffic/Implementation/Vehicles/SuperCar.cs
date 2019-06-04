@@ -4,7 +4,7 @@ using System.Text;
 using Traffic.Enum;
 using Traffic.Interface;
 
-namespace Traffic.Vehicles
+namespace Traffic.Implementation.Vehicles
 {
     public class SuperCar : IVehicle
     {

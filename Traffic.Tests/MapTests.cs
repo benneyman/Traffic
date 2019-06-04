@@ -5,19 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Traffic.Implementation;
+using Traffic.Interface;
 
 namespace Traffic.Tests
 {
-    public class DTO
-    {
-        public int Cost { get; set; }
-        public List<int> Routes { get; set; }
-        public DTO(int cost, List<int> routes = null)
-        {
-            Cost = cost;
-            Routes = routes ?? new List<int>();
-        }
-    }
     [TestFixture]
     class MapTests
     {
@@ -36,63 +27,26 @@ namespace Traffic.Tests
             map.TotalCities.Should().Be(2);
 
         }
-        [Test]
-        public void FW()
-        {
-            object value = null;
-            value.ToString();
-            var graph = new List<List<Tuple<int, int>>>()
-            {
-                new List<Tuple<int, int>>() {new Tuple<int, int>(3, 1)},
-                new List<Tuple<int, int>>() { new Tuple<int, int>(3, 4), new Tuple<int, int>(4, 2)},
-                new List<Tuple<int, int>>() { new Tuple<int, int>(1, 1), new Tuple<int, int>(5, 3), new Tuple<int, int>(2, 4)},
-                new List<Tuple<int, int>>() { new Tuple<int, int>(5, 17), new Tuple<int, int>(2, 2)},
-                new List<Tuple<int, int>>() { new Tuple<int, int>(3, 3), new Tuple<int, int>(4, 17)},
-            };
-            
-            var dp = new List<List<DTO>>();
-            foreach (var i in Enumerable.Range(0, graph.Count))
-            {
-                dp.Add(new List<DTO>());
-                foreach (var j in Enumerable.Range(0, graph.Count)) 
-                {
-                    DTO dto;
-                    if(i == j)
-                    {
-                        dto = new DTO(0);
-                    }
-                    else
-                    {
-                        dto = new DTO(int.MaxValue);
-                    }
-                    dp[i].Add(dto);
-                }
-            }
-            //Initialize
-            for (int i = 0; i < graph.Count; i++)
-            {
-                foreach (var edge in graph[i])
-                {
-                    dp[i][edge.Item1 - 1].Cost= edge.Item2;
-                    dp[i][edge.Item1 - 1].Routes.Add(i + 1);
-                }
-            }
-            //FW
-            for (int k = 0; k < graph.Count; k++)
-            {
-                for (int i = 0; i < graph.Count; i++)
-                {
-                    for (int j = 0; j < graph.Count; j++)
-                    {
-                        if(dp[i][k].Cost != int.MaxValue && dp[k][j].Cost != int.MaxValue && dp[i][k].Cost + dp[k][j].Cost < dp[i][j].Cost)
-                        {
-                            dp[i][j].Cost =  dp[i][k].Cost + dp[k][j].Cost;
-                            dp[i][j].Routes = dp[i][k].Routes.Concat(dp[k][j].Routes).ToList();
-                        }
-                    }
-                }
-            }
 
+        [Test]
+        public void CheckIfTotalCitiesAreCorrect()
+        {
+            ICity ss = new City("Silk Dorb", 1);
+            ICity hh = new City("Hallitharam", 2);
+            ICity rk = new City("RK Puram", 3);
+            IOrbit orbit1 = new Orbit(18, 20, "Orbit 1");
+            IOrbit orbit2 = new Orbit(20, 10, "Orbit 2");
+            IOrbit orbit3 = new Orbit(30, 15, "Orbit 3");
+            IOrbit orbit4 = new Orbit(15, 18, "Orbit 4");
+
+            ICitiesGraph citiesGraph = new CitiesGraph();
+
+            citiesGraph.AddNewRoute(ss, hh, orbit2);
+            citiesGraph.AddNewRoute(ss, hh, orbit1);
+            citiesGraph.AddNewRoute(ss, rk, orbit3);
+            citiesGraph.AddNewRoute(rk, hh, orbit4);
+
+            citiesGraph.TotalCities.Should().Be(3);
         }
 
     }

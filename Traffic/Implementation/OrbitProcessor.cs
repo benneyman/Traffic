@@ -2,43 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Traffic.DTOs;
 using Traffic.Interface;
 
 namespace Traffic.Implementation
 {
     public class OrbitProcessor : IOrbitProcessor
     {
-        private Dictionary<string, IOrbit> _allOrbits;
-        public List<IOrbit> Orbits  { get; }
-
-        public OrbitProcessor(List<IOrbit> orbits)
+        private Dictionary<IOrbit, int> _allOrbitsTrafficSpeed;
+        public OrbitProcessor(List<OrbitCondition> orbits)
         {
-            _allOrbits = orbits.ToDictionary(key => key.Name, value => value);
-            Orbits = orbits;
+            _allOrbitsTrafficSpeed = orbits.ToDictionary(key => key.Orbit, value => value.TrafficSpeed);
         }
-
-        public IOrbit GetOrbitFromName(string orbitName)
+        public int GetOrbitTrafficSpeed(IOrbit orbit)
         {
-            IOrbit orbit;
-            if (!_allOrbits.TryGetValue(orbitName, out orbit))
-                throw new KeyNotFoundException($"{orbit.Name} not found");
-            return orbit;
-        }
-        public List<IOrbit> GetOrbitsFromName(List<string> orbitNames)
-        {
-            try
-            {
-                List<IOrbit> orbits = new List<IOrbit>();
-                foreach (var orbitName in orbitNames)
-                {
-                    orbits.Add(GetOrbitFromName(orbitName));
-                }
-                return orbits;
-            }
-            catch (KeyNotFoundException)
-            {
-                throw;
-            }
+            int result = int.MaxValue;
+            _allOrbitsTrafficSpeed.TryGetValue(orbit, out result);
+            return result;
         }
     }
 }

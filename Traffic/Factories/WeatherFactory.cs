@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using Traffic.Enum;
+using Traffic.Interface;
 
-namespace Traffic
+namespace Traffic.Factories
 {
-    public static class WeatherFactory
+    public  class WeatherFactory : IWeatherFactory
     {
-        public static int GetCraterReductionPercentage(WeatherConditions weatherCondition)
+        public  int GetCraterChangePercentage(WeatherConditions weatherCondition)
         {
             switch (weatherCondition)
             {

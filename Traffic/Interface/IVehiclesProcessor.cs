@@ -10,5 +10,6 @@ namespace Traffic.Interface
 
         IVehicle GetVehicleFromType(VehicleType vehicleType);
         List<IVehicle> GetVehiclesFromType(List<VehicleType> vehicleTypes);
+        List<IVehicle> GetSuitableVehiclesForWeather(WeatherConditions weatherConditions);
     }
 }

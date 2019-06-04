@@ -41,5 +41,10 @@ namespace Traffic.Implementation
                 throw;
             }
         }
+        public List<IVehicle> GetSuitableVehiclesForWeather(WeatherConditions weatherConditions)
+        {
+            return Vehicles.Where(m => m.TravellableConditons.HasFlag(weatherConditions))
+                .ToList();
+        }
     }
 }

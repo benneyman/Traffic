@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Traffic.Interface;
 
 namespace Traffic.DTOs
 {
     public class OrbitCondition
     {
-        public OrbitCondition(string orbitName, int trafficSpeed)
+        public OrbitCondition(IOrbit orbit, int trafficSpeed)
         {
-            OrbitName = orbitName;
+            Orbit = orbit;
             TrafficSpeed = trafficSpeed;
         }
 
-        public string OrbitName { get; }
+        public IOrbit Orbit { get; }
         public int TrafficSpeed { get; }
     }
 }
