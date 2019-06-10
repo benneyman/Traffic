@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Traffic.DTOs;
+using Traffic.Enum;
+using Traffic.Factories;
 using Traffic.Implementation;
-using Traffic.Implementation.Vehicles;
 using Traffic.Interface;
 
 namespace Traffic.Tests
@@ -23,8 +24,8 @@ namespace Traffic.Tests
             IOrbit orbit2 = new Orbit(3, 1, "Orbit 2");
             IOrbit orbit3 = new Orbit(1, 0, "Orbit 3");
 
-            var bike = new Bike(60, 1);
-            var tk = new TukTuk();
+            var bike = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
+            var tk = VehicleFactory.GetVehicle(VehicleType.TukTuk);
 
             var first = new AllVehicleOptimalRouteNode(new Dictionary<IVehicle, OptimalRouteNode>()
             {

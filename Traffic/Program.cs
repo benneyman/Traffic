@@ -4,7 +4,6 @@ using Traffic.DTOs;
 using Traffic.Interface;
 using Traffic.Enum;
 using Traffic.Implementation;
-using Traffic.Implementation.Vehicles;
 using Traffic.Factories;
 
 namespace Traffic
@@ -15,9 +14,9 @@ namespace Traffic
         {
             List<IVehicle> vehicles = new List<IVehicle>()
             {
-                new Bike(),
-                new TukTuk(),
-                new SuperCar()
+                VehicleFactory.GetVehicle(VehicleType.Bike),
+                VehicleFactory.GetVehicle(VehicleType.TukTuk),
+                VehicleFactory.GetVehicle(VehicleType.SuperCar)
             };
             IVehiclesProcessor vehiclesProcessor = new VehiclesProcessor(vehicles);
 

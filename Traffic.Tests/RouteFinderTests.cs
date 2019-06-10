@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using Traffic.DTOs;
 using Traffic.Enum;
+using Traffic.Factories;
 using Traffic.Implementation;
-using Traffic.Implementation.Vehicles;
 using Traffic.Interface;
 
 namespace Traffic.Tests
@@ -31,9 +31,9 @@ namespace Traffic.Tests
         {
             var vehicles = new List<IVehicle>()
             {
-                new Bike(3, 3),
-                new TukTuk(2, 2),
-                new SuperCar(1, 1)
+                new Vehicle(3, 3, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike),
+                new Vehicle(2, 2, WeatherConditions.Sunny | WeatherConditions.Rainy, VehicleType.TukTuk),
+                new Vehicle(1, 1, WeatherConditions.Sunny | WeatherConditions.Rainy | WeatherConditions.Windy, VehicleType.SuperCar)
             };
             vehiclesProcessor = new VehiclesProcessor(vehicles);
 
@@ -60,7 +60,7 @@ namespace Traffic.Tests
             weatherMock.Setup(m => m.GetCraterChangePercentage(WeatherConditions.Sunny))
                 .Returns(-10);
             var routeFinder = new RouteFinder(citiesGraph, vehiclesProcessor, weatherMock.Object);
-            var vehicle = new Bike();
+            var vehicle = VehicleFactory.GetVehicle(VehicleType.Bike);
             int actual = routeFinder.ComputeTimeTaken(orbit, vehicle, WeatherConditions.Sunny, 5);
             actual.Should().Be(300);
         }
@@ -72,7 +72,7 @@ namespace Traffic.Tests
             weatherMock.Setup(m => m.GetCraterChangePercentage(WeatherConditions.Windy))
                 .Returns(-5);
             var routeFinder = new RouteFinder(citiesGraph, vehiclesProcessor, weatherMock.Object);
-            var vehicle = new TukTuk();
+            var vehicle = VehicleFactory.GetVehicle(VehicleType.TukTuk);
             int actual = routeFinder.ComputeTimeTaken(orbit, vehicle, WeatherConditions.Windy, 20);
             actual.Should().Be(130);
         }
@@ -84,7 +84,7 @@ namespace Traffic.Tests
             weatherMock.Setup(m => m.GetCraterChangePercentage(WeatherConditions.Windy))
                 .Returns(-5);
             var routeFinder = new RouteFinder(citiesGraph, vehiclesProcessor, weatherMock.Object);
-            var vehicle = new Bike(60, 1);
+            var vehicle = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
             int actual = routeFinder.ComputeTimeTaken(orbit, vehicle, WeatherConditions.Windy, 100);
             actual.Should().Be(6);
         }
@@ -98,7 +98,7 @@ namespace Traffic.Tests
             IOrbit orbit2 = new Orbit(3, 1, "Orbit 2");
             IOrbit orbit3 = new Orbit(1, 0, "Orbit 3");
 
-            var vehicle = new Bike(60, 1);
+            var vehicle = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
             var allVehicles = new List<IVehicle>() { vehicle };
             ICitiesGraph citiesGraph = new CitiesGraph();
             citiesGraph.AddNewRoute(ss, hh, orbit1);
@@ -186,7 +186,7 @@ namespace Traffic.Tests
             IOrbit orbit2 = new Orbit(3, 1, "Orbit 2");
             IOrbit orbit3 = new Orbit(1, 0, "Orbit 3");
 
-            var vehicle = new Bike(60, 1);
+            var vehicle = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
             var allVehicles = new List<IVehicle>() { vehicle };
             ICitiesGraph citiesGraph = new CitiesGraph();
             citiesGraph.AddNewRoute(ss, hh, orbit1);
@@ -274,7 +274,7 @@ namespace Traffic.Tests
             IOrbit orbit2 = new Orbit(7, 1, "Orbit 2");
             IOrbit orbit3 = new Orbit(1, 0, "Orbit 3");
 
-            var vehicle = new Bike(60, 1);
+            var vehicle = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
             var allVehicles = new List<IVehicle>() { vehicle };
             ICitiesGraph citiesGraph = new CitiesGraph();
             citiesGraph.AddNewRoute(ss, hh, orbit1);
@@ -311,7 +311,7 @@ namespace Traffic.Tests
             IOrbit orbit2 = new Orbit(7, 1, "Orbit 2");
             IOrbit orbit3 = new Orbit(1, 0, "Orbit 3");
 
-            var vehicle = new Bike(60, 1);
+            var vehicle = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
             var allVehicles = new List<IVehicle>() { vehicle };
             ICitiesGraph citiesGraph = new CitiesGraph();
             citiesGraph.AddNewRoute(ss, hh, orbit1);
@@ -348,7 +348,7 @@ namespace Traffic.Tests
             IOrbit orbit2 = new Orbit(7, 1, "Orbit 2");
             IOrbit orbit3 = new Orbit(1, 0, "Orbit 3");
 
-            var vehicle = new Bike(60, 1);
+            var vehicle = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
             var allVehicles = new List<IVehicle>() { vehicle };
             ICitiesGraph citiesGraph = new CitiesGraph();
             citiesGraph.AddNewRoute(ss, hh, orbit1);
@@ -386,7 +386,7 @@ namespace Traffic.Tests
             IOrbit orbit2 = new Orbit(7, 1, "Orbit 2");
             IOrbit orbit3 = new Orbit(1, 0, "Orbit 3");
 
-            var vehicle = new Bike(60, 1);
+            var vehicle = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
             var allVehicles = new List<IVehicle>() { vehicle };
             ICitiesGraph citiesGraph = new CitiesGraph();
             citiesGraph.AddNewRoute(ss, hh, orbit1);
@@ -423,7 +423,7 @@ namespace Traffic.Tests
             IOrbit orbit2 = new Orbit(7, 1, "Orbit 2");
             IOrbit orbit3 = new Orbit(1, 0, "Orbit 3");
 
-            var vehicle = new Bike(60, 1);
+            var vehicle = new Vehicle(60, 1, WeatherConditions.Sunny | WeatherConditions.Windy, VehicleType.Bike);
             var allVehicles = new List<IVehicle>() { vehicle };
             ICitiesGraph citiesGraph = new CitiesGraph();
             citiesGraph.AddNewRoute(ss, hh, orbit1);
