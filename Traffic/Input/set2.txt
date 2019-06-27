@@ -1,0 +1,22 @@
+﻿3, 4, 4, 2
+Silk Dorb, Hallitaram, RK Puram
+18, 20, Orbit 1
+20, 10, Orbit 2
+30, 15, Orbit 3
+15, 18, Orbit 4
+Silk Dorb, Hallitaram, Orbit 1
+Silk Dorb, Hallitaram, Orbit 2
+Silk Dorb, RK Puram, Orbit 3
+RK Puram, Hallitaram, Orbit 4
+Sunny
+Orbit 1, 12
+Orbit 2, 10
+Orbit 3, 15
+Orbit 4, 12
+Silk Dorb, Hallitaram, RK Puram
+Windy
+Orbit 1, 5
+Orbit 2, 10
+Orbit 3, 20
+Orbit 4, 20
+Silk Dorb, Hallitaram, RK Puram

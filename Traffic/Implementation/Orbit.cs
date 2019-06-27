@@ -1,4 +1,5 @@
 ﻿using System;
+using Traffic.Enum;
 using Traffic.Interface;
 
 namespace Traffic.Implementation
@@ -15,6 +16,5 @@ namespace Traffic.Implementation
             Craters = craters;
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }
-
     }
 }

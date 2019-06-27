@@ -10,4 +10,10 @@ namespace Traffic.Enum
         TukTuk,
         SuperCar
     }
+    public enum Units
+    {
+        Miles = 1, 
+        Kilo, 
+        Mega
+    }
 }

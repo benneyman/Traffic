@@ -1,0 +1,14 @@
+﻿2, 2, 2, 2
+Silk Dorb, Hallitaram
+18, 20, Orbit 1
+20, 10, Orbit 2
+Silk Dorb, Hallitaram, Orbit 1
+Silk Dorb, Hallitaram, Orbit 2
+Sunny
+Orbit 1, 12
+Orbit 2, 10
+Silk Dorb, Hallitaram
+Windy
+Orbit 1, 14
+Orbit 2, 20
+Silk Dorb, Hallitaram
