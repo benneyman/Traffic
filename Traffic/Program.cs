@@ -7,6 +7,7 @@ using Traffic.Implementation;
 using Traffic.Factories;
 using System.Linq;
 using System.IO;
+using System.Reflection;
 
 namespace Traffic
 {
@@ -21,7 +22,8 @@ namespace Traffic
                 VehicleFactory.GetVehicle(VehicleType.SuperCar)
             };
             IVehiclesProcessor vehiclesProcessor = new VehiclesProcessor(vehicles);
-            var files = Directory.GetFiles(@"~\Input", "*.txt", SearchOption.TopDirectoryOnly);
+            var inputFolder = Path.Combine(Directory.GetCurrentDirectory(), "Input");
+            var files = Directory.GetFiles(inputFolder, "*.txt", SearchOption.TopDirectoryOnly);
             foreach (var file in files)
             {
                 Console.WriteLine($"Executing {Path.GetFileNameWithoutExtension(file)}");
